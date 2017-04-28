@@ -5,14 +5,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Board/Board.cpp \
+../src/Board/Game.cpp \
 ../src/Board/Move.cpp 
 
 OBJS += \
 ./src/Board/Board.o \
+./src/Board/Game.o \
 ./src/Board/Move.o 
 
 CPP_DEPS += \
 ./src/Board/Board.d \
+./src/Board/Game.d \
 ./src/Board/Move.d 
 
 

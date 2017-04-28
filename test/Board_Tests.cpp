@@ -4,7 +4,7 @@
 using namespace std;
 
 TEST(BoardTest, ZeroMatrixConstructWithDimensions) {
-	Board *board = new Board(3, 2);
+	Board *board = new Board(3, 2, NULL);
 	board->printCells();
 
 	ASSERT_EQ(board->width, 3);
@@ -12,7 +12,7 @@ TEST(BoardTest, ZeroMatrixConstructWithDimensions) {
 }
 
 TEST(BoardTest, SetsValue) {
-	Board *board = new Board(3, 2);
+	Board *board = new Board(3, 2, NULL);
 	board->setValue(0, 0, 1);
 	board->printCells();
 
@@ -53,3 +53,18 @@ TEST(BoardTest, BoardSolvedFalse) {
 	ASSERT_EQ(boardSolved, false);
 }
 
+
+TEST(BoardTest, testNormalizeBoard) {
+	Board *board = new Board();
+	board->loadGameState("level1.txt");
+	board->normalizeBoard();
+
+	Board *board2 = new Board();
+	board2->loadGameState("level1_alternate.txt");
+	board2->normalizeBoard();
+
+	board->printCells();
+	board2->printCells();
+
+	ASSERT_EQ(Board::compareBoardsIdentical(board, board2), true);
+}

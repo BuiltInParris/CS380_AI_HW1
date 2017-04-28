@@ -6,25 +6,19 @@
  */
 
 #include <vector>
-#include "Board.h"
 
 
 class Move {
-private:
-	Board * board;
-	bool checkRight(std::vector<int> location);
-	bool checkLeft(std::vector<int> location);
-	bool checkUp(std::vector<int> location);
-	bool checkDown(std::vector<int> location);
 public:
 	int piece;
+	char direction;
+	Move * parentMove;
 
-	Move(Board * state, int pieceNum) {
-		board = state;
+	Move(int pieceNum, char dir, Move * move) {
 		piece = pieceNum;
+		direction = dir;
+		parentMove = move;
 	}
-
-	std::vector<char> getMoves();
 };
 
 

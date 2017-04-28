@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Board/Move.h"
+#include "Board/Board.h"
 #include <vector>
 
 using namespace std;
@@ -7,29 +7,26 @@ using namespace std;
 TEST(MoveTest, checkTestMoves) {
 	Board* board = new Board();
 	board->loadGameState("level1.txt");
-	Move * move = new Move(board, 9);
-	vector<char> possibleDirections = move->getMoves();
+	vector<Move *>moves = board->getPieceMoves(9, NULL);
 
-	for(int i = 0; i < possibleDirections.size(); i++)
-	{
-		printf("%c", possibleDirections.at(i));
-	}
+	std::vector<Move *> answerMoves;
+	answerMoves.push_back(new Move(9, 'd', NULL));
+	ASSERT_EQ(moves.size(), answerMoves.size());
 
-	std::vector<char> answerDirections;
-	answerDirections.push_back('d');
-	ASSERT_EQ(possibleDirections.size(), answerDirections.size());
 
-	Move * move2 = new Move(board, 10);
-	vector<char> possibleDirections2 = move2->getMoves();
-	ASSERT_EQ(possibleDirections.size(), answerDirections.size());
+	vector<Move *>moves2 = board->getPieceMoves(10, NULL);
 
-	Move * move3 = new Move(board, 2);
-	vector<char> possibleDirections3 = move3->getMoves();
-	vector<char> nullAnswerDirections = vector<char>();
-	ASSERT_EQ(possibleDirections3.size(), nullAnswerDirections.size());
-	Move * move4 = new Move(board, 4);
-	vector<char> possibleDirections4 = move4->getMoves();
-	ASSERT_EQ(possibleDirections4.size(), nullAnswerDirections.size());
+	std::vector<Move *> answerMoves2;
+	answerMoves2.push_back(new Move(10, 'd', NULL));
+	ASSERT_EQ(moves2.size(), answerMoves2.size());
+
+	vector<Move *>moves3 = board->getPieceMoves(2, NULL);
+
+	std::vector<Move *> nullAnswerMoves;
+	ASSERT_EQ(moves3.size(), nullAnswerMoves.size());
+
+	vector<Move *> moves4 = board->getPieceMoves(2, NULL);
+	ASSERT_EQ(moves4.size(), nullAnswerMoves.size());
 }
 
 
@@ -37,15 +34,11 @@ TEST(MoveTest, checkEdgeLogicMoves) {
 
 	Board* board = new Board();
 	board->loadGameState("levelEdgeTest.txt");
-	Move * move = new Move(board, 5);
-	vector<char> possibleDirections = move->getMoves();
+	vector<Move *> possibleDirections = board->getPieceMoves(5, NULL);
 
-	Move * move2 = new Move(board, 3);
-	vector<char> possibleDirections2 = move2->getMoves();
+	vector<Move *> possibleDirections2 = board->getPieceMoves(3, NULL);
 
-	Move * move3 = new Move(board, 4);
-	vector<char> possibleDirections3 = move3->getMoves();
+	vector<Move *> possibleDirections3 = board->getPieceMoves(4, NULL);
 
-	Move * move4 = new Move(board, 6);
-	vector<char> possibleDirections4 = move4->getMoves();
+	vector<Move *> possibleDirections4 = board->getPieceMoves(6, NULL);
 }
